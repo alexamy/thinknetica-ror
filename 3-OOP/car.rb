@@ -1,6 +1,6 @@
 class Car
   attr_reader :engine_volume
-  # attr_accessor :speed
+  attr_accessor :speed
 
   def initialize(speed = 0, engine_volume = 1.6)
     @speed = speed
@@ -16,21 +16,11 @@ class Car
   end
 
   def stop
-    @speed = 0
+    self.speed = 0
   end
 
   def go
-    @speed = 50
-  end
-
-  # attr_reader :speed
-  def speed
-    @speed
-  end
-
-  # attr_writer :speed
-  def speed=(speed)
-    @speed = speed
+    self.speed = 50
   end
 end
 
