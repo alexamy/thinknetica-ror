@@ -1,7 +1,7 @@
-print "Enter side of triangle: "
+print 'Enter side of triangle: '
 side = gets.chomp.to_i
 
-print "Enter height of triangle: "
+print 'Enter height of triangle: '
 height = gets.chomp.to_i
 
 area = side * height / 2.0

@@ -1,10 +1,10 @@
-print "Enter a of equation: "
+print 'Enter a of equation: '
 a = gets.chomp.to_i
 
-print "Enter b of equation: "
+print 'Enter b of equation: '
 b = gets.chomp.to_i
 
-print "Enter c of equation: "
+print 'Enter c of equation: '
 c = gets.chomp.to_i
 
 d = b ** 2 - 4 * a * c
@@ -19,5 +19,5 @@ if d > 0
 elsif d == 0
   puts "Root: #{x1}"
 else
-  puts "No roots exist"
+  puts 'No roots exist'
 end
