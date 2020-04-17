@@ -1,28 +1,22 @@
 print "Enter first triangle side: "
-a = gets.chomp.to_i
+side_a = gets.chomp.to_i
 
 print "Enter second triangle side: "
-b = gets.chomp.to_i
+side_b = gets.chomp.to_i
 
 print "Enter third triangle side: "
-c = gets.chomp.to_i
+side_c = gets.chomp.to_i
 
-if a >= b && a >= c
-  is_right = a ** 2 == b ** 2 + c ** 2
-elsif b >= a && b >= c
-  is_right = b ** 2 == a ** 2 + c ** 2
-else
-  is_right = c ** 2 == a ** 2 + b ** 2
-end
+a, b, h = [side_a, side_b, side_c].sort
 
-if is_right
+if h ** 2 == a ** 2 + b ** 2
   puts "Triangle is right"
 end
 
-if a == b || b == c || a == c
+if a == b || b == h || a == h
   puts "Triangle is isosceles"
 end
 
-if a == b && b == c
+if a == b && b == h
   puts "Triangle is equilateral"
 end
