@@ -26,16 +26,7 @@ month = gets.chomp.to_i
 print 'Enter year: '
 year = gets.chomp.to_i
 
-if year % 400 == 0
-  is_leap = true
-elsif year % 100 == 0
-  is_leap = false
-elsif year % 4 == 0
-  is_leap = true
-else
-  is_leap = false
-end
-
+is_leap = (year % 400 == 0) || !(year % 100 == 0) && (year % 4 == 0)
 days_in_month[:february] = 29 if is_leap
 
 day_number = day
@@ -43,3 +34,5 @@ days_in_month.values.each.with_index(1) do |days, index|
   break if index == month
   day_number += days
 end
+
+puts day_number
