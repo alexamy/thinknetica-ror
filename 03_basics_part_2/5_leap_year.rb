@@ -29,10 +29,6 @@ year = gets.chomp.to_i
 is_leap = (year % 400 == 0) || !(year % 100 == 0) && (year % 4 == 0)
 days_in_month[:february] = 29 if is_leap
 
-day_number = day
-days_in_month.values.each.with_index(1) do |days, index|
-  break if index == month
-  day_number += days
-end
+day_number = day + days_in_month.take(month - 1).sum(&:last)
 
 puts day_number
