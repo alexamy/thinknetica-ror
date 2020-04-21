@@ -37,9 +37,11 @@ class Route
     stations.insert(-2, station)
   end
 
-  def remove_station(station)
-    intermediate = stations[2..-2].delete(station)
-    stations = stations[0] + intermediate + stations[-1]
+  def delete_station(station_target)
+    stations.delete_if.with_index do |station, index|
+      false if index > 0 || index < stations.size - 1
+      station == station_target
+    end
   end
 end
 
@@ -109,3 +111,12 @@ class Train
     end
   end
 end
+
+T1 = Train.new(101, TrainType::CARGO, 3)
+T2 = Train.new(202, TrainType::PASSENGER, 1)
+
+S1 = Station.new('Aklahoma')
+S2 = Station.new('Olabama')
+S3 = Station.new('NY')
+
+R1 = Route.new(S1, S3)
