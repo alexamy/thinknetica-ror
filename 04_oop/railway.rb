@@ -3,6 +3,46 @@ module TrainType
   PASSENGER = 2
 end
 
+# station
+class Station
+  attr_accessor :name, :trains
+
+  def initialize(name)
+    @name = name
+    @trains = []
+  end
+
+  def add_train(train)
+    trains << train
+  end
+
+  def departure(train)
+    trains.delete(train)
+  end
+
+  def trains_available_by_type(type)
+    trains.select { |t| t.type == type }.size
+  end
+end
+
+# route
+class Route
+  attr_accessor :stations
+
+  def initialize(station_start, station_end)
+    @stations = [station_start, station_end]
+  end
+
+  def add_station(station)
+    stations.insert(-2, station)
+  end
+
+  def remove_station(station)
+    intermediate = stations[2..-2].delete(station)
+    stations = stations[0] + intermediate + stations[-1]
+  end
+end
+
 # train
 class Train
   attr_accessor :number, :type, :carriages_count,
@@ -60,53 +100,12 @@ class Train
   end
 
   def station_current
-    if route
-      route.stations[station_index]
-    end
+    route.stations[station_index] if route
   end
 
   def station_next
     if route && station_index < route.stations.size - 1
       route.stations[station_index + 1]
     end
-  end
-end
-
-# route
-class Route
-  attr_accessor :stations
-
-  def initialize(station_start, station_end)
-    @stations = [station_start, station_end]
-  end
-
-  def add_station(station)
-    stations.insert(-2, station)
-  end
-
-  def remove_station(station)
-    stations.delete(station)
-  end
-end
-
-# station
-class Station
-  attr_accessor :name, :trains
-
-  def initialize(name)
-    @name = name
-    @trains = []
-  end
-
-  def add_train(train)
-    trains << train
-  end
-
-  def departure(train)
-    trains.delete(train)
-  end
-
-  def trains_available_by_type(type)
-    trains.select { |t| t.type == type }.size
   end
 end
