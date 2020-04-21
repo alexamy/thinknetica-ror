@@ -40,4 +40,20 @@ class Station
     @name = name
     @trains = []
   end
+
+  def add_train(train)
+    trains << train
+  end
+
+  def train_departure
+    trains.pop
+  end
+
+  def trains_available
+    trains
+  end
+
+  def trains_available_by_type(type)
+    trains.select { |t| t.type == type }
+  end
 end
