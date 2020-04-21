@@ -1,3 +1,8 @@
+module TrainType
+  CARGO = 1
+  PASSENGER = 2
+end
+
 class Train
   attr_accessor :number, :type, :carriages_count
 
