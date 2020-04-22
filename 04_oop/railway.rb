@@ -3,7 +3,7 @@ module TrainType
   PASSENGER = 2
 end
 
-# station
+# Station belongs to route and can add and departure trains
 class Station
   attr_accessor :name, :trains
 
@@ -21,11 +21,11 @@ class Station
   end
 
   def trains_available_by_type(type)
-    trains.select { |t| t.type == type }.size
+    trains.select { |train| train.type == type }.size
   end
 end
 
-# route
+# Route has stations
 class Route
   attr_accessor :stations
 
@@ -39,16 +39,18 @@ class Route
 
   def delete_station(station_target)
     stations.delete_if.with_index do |station, index|
-      next false if index == 0 || index == stations.size - 1
+      next false if index.zero? || index == stations.size - 1
+
       station == station_target
     end
   end
 end
 
-# train
+# Train can move, has carriage and optional route
 class Train
+  attr_reader :route
   attr_accessor :number, :type, :carriages_count,
-                :velocity, :route, :station_index
+                :velocity, :station_index
 
   def initialize(number, type, carriages_count)
     @number = number
@@ -66,11 +68,11 @@ class Train
   end
 
   def stopped?
-    velocity == 0
+    velocity.zero?
   end
 
-  def has_carriage?
-    carriages_count > 0
+  def carriage?
+    carriages_count.positive?
   end
 
   def add_carriage
@@ -78,10 +80,10 @@ class Train
   end
 
   def remove_carriage
-    self.carriages_count -= 1 if stopped? && has_carriage?
+    self.carriages_count -= 1 if stopped? && carriage?
   end
 
-  def set_route(route_target)
+  def route=(route_target)
     route.stations[station_index].departure_train(self) if route
 
     self.route = route_target
@@ -90,17 +92,17 @@ class Train
   end
 
   def go_to_next_station
-    if route && station_index < route.stations.size - 1
-      route.stations[station_index].departure_train(self)
-      self.station_index += 1
-      route.stations[station_index].add_train(self)
-    end
+    return unless route && station_index < route.stations.size - 1
+
+    route.stations[station_index].departure_train(self)
+    self.station_index += 1
+    route.stations[station_index].add_train(self)
   end
 
   def station_previous
-    if route && station_index > 0
-      route.stations[station_index - 1]
-    end
+    return unless route && station_index.positive?
+
+    route.stations[station_index - 1]
   end
 
   def station_current
