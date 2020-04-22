@@ -16,7 +16,7 @@ class Station
     trains << train
   end
 
-  def departure(train)
+  def departure_train(train)
     trains.delete(train)
   end
 
@@ -39,7 +39,7 @@ class Route
 
   def delete_station(station_target)
     stations.delete_if.with_index do |station, index|
-      false if index > 0 || index < stations.size - 1
+      next false if index == 0 || index == stations.size - 1
       station == station_target
     end
   end
@@ -58,11 +58,11 @@ class Train
   end
 
   def add_velocity(gain = 10)
-    velocity += gain
+    self.velocity += gain
   end
 
   def stop
-    velocity = 0
+    self.velocity = 0
   end
 
   def stopped?
@@ -73,24 +73,26 @@ class Train
     carriages_count > 0
   end
 
-  def carriage_add
-    carriages_count += 1 if stopped?
+  def add_carriage
+    self.carriages_count += 1 if stopped?
   end
 
-  def carriage_remove
-    carriages_count -= 1 if stopped? && has_carriage?
+  def remove_carriage
+    self.carriages_count -= 1 if stopped? && has_carriage?
   end
 
   def set_route(route_target)
-    route = route_target
-    station_index = 0
+    route.stations[station_index].departure_train(self) if route
+
+    self.route = route_target
+    self.station_index = 0
     route.stations[station_index].add_train(self)
   end
 
   def go_to_next_station
-    if route
-      route.stations[station_index].departure(self)
-      station_index += 1
+    if route && station_index < route.stations.size - 1
+      route.stations[station_index].departure_train(self)
+      self.station_index += 1
       route.stations[station_index].add_train(self)
     end
   end
@@ -106,17 +108,25 @@ class Train
   end
 
   def station_next
-    if route && station_index < route.stations.size - 1
-      route.stations[station_index + 1]
-    end
+    route.stations[station_index + 1] if route
   end
 end
 
-T1 = Train.new(101, TrainType::CARGO, 3)
-T2 = Train.new(202, TrainType::PASSENGER, 1)
+t1 = Train.new(101, TrainType::CARGO, 3)
+t2 = Train.new(202, TrainType::PASSENGER, 1)
 
-S1 = Station.new('Aklahoma')
-S2 = Station.new('Olabama')
-S3 = Station.new('NY')
+s1 = Station.new('Aklahoma')
+s2 = Station.new('Olabama')
+s3 = Station.new('NY')
 
-R1 = Route.new(S1, S3)
+r1 = Route.new(s1, s3)
+r1.add_station(s2)
+
+puts t1.inspect
+
+t1.set_route(r1)
+puts t1.route.inspect
+
+t1.go_to_next_station
+t1.go_to_next_station
+puts t1.station_previous.inspect, t1.station_current.inspect, t1.station_next.inspect
