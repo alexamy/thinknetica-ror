@@ -104,9 +104,9 @@ class Train
   end
 
   def route=(route_target)
-    station&.departure_train(self)
     self.route = route_target
-    self.station = route[0]
+    station&.departure_train(self)
+    self.station = route.stations.first
     station.add_train(self)
   end
 
@@ -128,11 +128,11 @@ class Train
     station.add_train(self)
   end
 
-  def station_previous
+  def station_next
     route&.station_next(station)
   end
 
-  def station_next
+  def station_previous
     route&.station_previous(station)
   end
 end
