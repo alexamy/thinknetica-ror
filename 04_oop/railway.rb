@@ -111,22 +111,3 @@ class Train
     route.stations[station_index + 1] if route
   end
 end
-
-t1 = Train.new(101, TrainType::CARGO, 3)
-t2 = Train.new(202, TrainType::PASSENGER, 1)
-
-s1 = Station.new('Aklahoma')
-s2 = Station.new('Olabama')
-s3 = Station.new('NY')
-
-r1 = Route.new(s1, s3)
-r1.add_station(s2)
-
-puts t1.inspect
-
-t1.set_route(r1)
-puts t1.route.inspect
-
-t1.go_to_next_station
-t1.go_to_next_station
-puts t1.station_previous.inspect, t1.station_current.inspect, t1.station_next.inspect
