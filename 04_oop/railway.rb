@@ -68,9 +68,8 @@ end
 
 # Train can move, has carriage and optional route
 class Train
-  attr_reader :route
   attr_accessor :number, :type, :carriages_count,
-                :velocity, :station
+                :velocity, :route, :station
 
   def initialize(number, type, carriages_count)
     @number = number
@@ -103,8 +102,9 @@ class Train
     self.carriages_count -= 1 if stopped? && carriage?
   end
 
-  def route=(route_target)
+  def set_route(route_target)
     self.route = route_target
+
     station&.departure_train(self)
     self.station = route.stations.first
     station.add_train(self)
@@ -115,7 +115,7 @@ class Train
     return unless station_next
 
     station.departure_train(self)
-    station = station_next
+    self.station = station_next
     station.add_train(self)
   end
 
@@ -124,7 +124,7 @@ class Train
     return unless station_previous
 
     station.departure_train(self)
-    station = station_previous
+    self.station = station_previous
     station.add_train(self)
   end
 
