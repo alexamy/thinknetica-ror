@@ -44,6 +44,10 @@ class Route
       station == station_target
     end
   end
+
+  def show_stations
+    stations.each { |station| puts station.name }
+  end
 end
 
 # Train can move, has carriage and optional route
