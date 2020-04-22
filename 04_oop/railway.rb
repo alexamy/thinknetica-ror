@@ -85,7 +85,6 @@ class Train
 
   def route=(route_target)
     route.stations[station_index].departure_train(self) if route
-
     self.route = route_target
     self.station_index = 0
     route.stations[station_index].add_train(self)
@@ -96,6 +95,14 @@ class Train
 
     route.stations[station_index].departure_train(self)
     self.station_index += 1
+    route.stations[station_index].add_train(self)
+  end
+
+  def go_to_previous_station
+    return unless route && station_index.positive?
+
+    route.stations[station_index].departure_train(self)
+    self.station_index -= 1
     route.stations[station_index].add_train(self)
   end
 
