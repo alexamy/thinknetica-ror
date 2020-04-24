@@ -3,9 +3,8 @@ class Train
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
-  def initialize(number, type, carriages_count)
+  def initialize(number, carriages_count)
     @number = number
-    @type = type
     @carriages = carriages_count.times.map { carriage_type.new }
     @velocity = 0
   end
@@ -77,7 +76,7 @@ class Train
   protected
 
   # Only class can write its values directly
-  attr_writer :number, :type, :carriages,
+  attr_writer :number, :carriages,
               :velocity, :route, :station
 end
 
