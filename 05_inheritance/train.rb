@@ -3,9 +3,9 @@ class Train
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
-  def initialize(number, carriages_count)
+  def initialize(number)
     @number = number
-    @carriages = carriages_count.times.map { carriage_type.new }
+    @carriages = []
     @velocity = 0
   end
 

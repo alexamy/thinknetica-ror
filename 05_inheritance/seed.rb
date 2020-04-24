@@ -20,10 +20,10 @@ class Seed
 
   def sample_trains
     [
-      CargoTrain.new(101, 2),
-      CargoTrain.new(202, 0),
-      PassengerTrain.new(303, 3),
-      PassengerTrain.new(404, 1)
+      CargoTrain.new(101),
+      CargoTrain.new(202),
+      PassengerTrain.new(303),
+      PassengerTrain.new(404)
     ]
   end
 
