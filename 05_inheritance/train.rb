@@ -40,11 +40,11 @@ class Train
     carriages.pop if stopped? && carriage?
   end
 
-  def set_route(route_target)
-    self.route = route_target
+  def place_on_route(route)
+    self.route = route
 
     station&.departure_train(self)
-    self.station = route.stations.first
+    self.station = self.route.stations.first
     station.add_train(self)
   end
 
