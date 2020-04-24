@@ -1,7 +1,7 @@
 # Train can move, has carriage and optional route
 class Train
-  attr_accessor :number, :type, :carriages_count,
-                :velocity, :route, :station
+  attr_reader :number, :type, :carriages_count,
+              :velocity, :route, :station
 
   def initialize(number, type, carriages_count)
     @number = number
@@ -67,6 +67,12 @@ class Train
   def station_previous
     route&.station_previous(station)
   end
+
+  protected
+
+  # Only class can write its values directly
+  attr_writer :number, :type, :carriages_count,
+              :velocity, :route, :station
 end
 
 # Cargo train

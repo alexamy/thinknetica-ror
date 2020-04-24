@@ -1,6 +1,6 @@
 # Station belongs to route and can add and departure trains
 class Station
-  attr_accessor :name, :trains
+  attr_reader :name, :trains
 
   def initialize(name)
     @name = name
@@ -18,4 +18,8 @@ class Station
   def trains_available_by_class(class_name)
     trains.select { |train| train.class == class_name }.size
   end
+
+  protected
+
+  attr_writer :name, :trains
 end
