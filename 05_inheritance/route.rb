@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Route has stations
 class Route
   attr_accessor :stations

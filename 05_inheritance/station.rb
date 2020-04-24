@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Station belongs to route and can add and departure trains
 class Station
   attr_accessor :name, :trains

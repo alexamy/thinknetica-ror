@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Train can move, has carriage and optional route
 class Train
   attr_accessor :number, :type, :carriages_count,
