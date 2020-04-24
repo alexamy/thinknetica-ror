@@ -13,7 +13,7 @@ class Train
   end
 
   def add_velocity(gain = 10)
-    self.velocity += gain
+    self.velocity += gain if gain.positive?
   end
 
   def stop
