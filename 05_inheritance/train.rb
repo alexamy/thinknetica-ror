@@ -1,13 +1,17 @@
 # Train can move, has carriage and optional route
 class Train
-  attr_reader :number, :type, :carriages_count,
+  attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
   def initialize(number, type, carriages_count)
     @number = number
     @type = type
-    @carriages_count = carriages_count
+    @carriages = carriages_count.times.map { carriage_type.new }
     @velocity = 0
+  end
+
+  def carriage_type
+    Carriage
   end
 
   def add_velocity(gain = 10)
@@ -23,15 +27,17 @@ class Train
   end
 
   def carriage?
-    carriages_count.positive?
+    carriages.size.positive?
   end
 
-  def add_carriage
-    self.carriages_count += 1 if stopped?
+  def add_carriage(carriage)
+    return unless stopped? && carriage.class == carriage_type
+
+    carriages << carriage
   end
 
   def remove_carriage
-    self.carriages_count -= 1 if stopped? && carriage?
+    carriages.pop if stopped? && carriage?
   end
 
   def set_route(route_target)
@@ -71,14 +77,20 @@ class Train
   protected
 
   # Only class can write its values directly
-  attr_writer :number, :type, :carriages_count,
+  attr_writer :number, :type, :carriages,
               :velocity, :route, :station
 end
 
 # Cargo train
 class CargoTrain < Train
+  def carriage_type
+    CargoCarriage
+  end
 end
 
 # Passenger train
 class PassengerTrain < Train
+  def carriage_type
+    PassengerCarriage
+  end
 end
