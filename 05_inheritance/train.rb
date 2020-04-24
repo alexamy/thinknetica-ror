@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-module TrainType
-  CARGO = 1
-  PASSENGER = 2
-end
-
 # Train can move, has carriage and optional route
 class Train
   attr_accessor :number, :type, :carriages_count,
@@ -74,4 +69,12 @@ class Train
   def station_previous
     route&.station_previous(station)
   end
+end
+
+# Cargo train
+class CargoTrain < Train
+end
+
+# Passenger train
+class PassengerTrain < Train
 end
