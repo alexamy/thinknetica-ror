@@ -2,14 +2,17 @@
 module Ui
   def self.choose_from(collection)
     loop do
-      print_collection(collection)
-      index = get_input('your option').to_i
-      result = collection[index]
-
+      result = select_in_collection(collection)
       return result if result
 
       puts 'Unknown index'
     end
+  end
+
+  def self.select_in_collection(collection)
+    print_collection(collection)
+    index = get_input('your option').to_i
+    collection[index]
   end
 
   def self.print_collection(collection)
