@@ -9,8 +9,10 @@ require_relative 'railway_stations'
 require_relative 'railway_routes'
 require_relative 'railway_validator'
 require_relative 'railway'
+require_relative 'interactive_shell'
 
-railway = Railway.new
+title = 'Railway Manager'
+stop_word = 'Stop'
 menu = [
   'Stop',
   'Add train',
@@ -27,15 +29,6 @@ menu = [
   'Remove station from route'
 ]
 
-loop do
-  puts 'Railway Manager'
-  selected = Ui.choose_from(menu)
-  return if selected == 'Stop'
-
-  method = selected.downcase.gsub(' ', '_')
-  railway.public_send(method)
-
-  print 'Press any key'
-  puts
-  gets
-end
+railway = Railway.new
+shell = InteractiveShell.new(railway, title, menu, stop_word)
+shell.run
