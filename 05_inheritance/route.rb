@@ -10,7 +10,7 @@ class Route
     stations.insert(-2, station)
   end
 
-  def delete_station(station_target)
+  def remove_station(station_target)
     stations.delete_if.with_index do |station, index|
       next false if index.zero? || index == stations.size - 1
 

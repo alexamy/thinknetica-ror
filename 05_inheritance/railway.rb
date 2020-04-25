@@ -106,7 +106,7 @@ class Railway
     return 'No intermediate stations in route' if intermediate_stations.empty?
 
     station = Ui.choose_from(intermediate_stations)
-    route.delete_station(station)
+    route.remove_station(station)
   end
 
   private
