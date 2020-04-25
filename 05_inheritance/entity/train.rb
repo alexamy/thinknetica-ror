@@ -73,6 +73,10 @@ class Train
     route&.station_previous(station)
   end
 
+  def to_s
+    "Train #{number}, type #{carriage_type}"
+  end
+
   protected
 
   # Only class can write its values directly

@@ -19,6 +19,10 @@ class Station
     trains.select { |train| train.class == class_name }.size
   end
 
+  def to_s
+    "Station #{name} with #{trains.size} trains"
+  end
+
   protected
 
   attr_writer :name, :trains

@@ -40,6 +40,10 @@ class Route
     stations[1..-2]
   end
 
+  def to_s
+    "Route #{name} with #{trains.size} stations"
+  end
+
   protected
 
   attr_writer :stations
