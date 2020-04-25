@@ -5,7 +5,7 @@ module RailwayValidator
   def trains_validator
     {
       success: trains.any?,
-      message: 'Add routes first'
+      message: 'Add train first'
     }
   end
 
@@ -19,14 +19,14 @@ module RailwayValidator
   def routes_validator
     {
       success: routes.any?,
-      message: 'Add routes first'
+      message: 'Add route first'
     }
   end
 
   def stations_for_route_validator
     {
       success: stations.size >= 2,
-      message: 'Add at least 2 stations first'
+      message: 'Add at least 2 stations'
     }
   end
 
