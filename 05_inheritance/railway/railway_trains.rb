@@ -4,8 +4,11 @@ module RailwayTrains
 
   def add_train
     number = Ui.get_input('enter train number').to_i
-    trains << Train.new(number)
-    # add train type selector
+    train_class = get_train_class
+
+    puts 'Unknown train type' unless train_class
+
+    trains << train_class.new(number)
   end
 
   def add_carriage_to_train
@@ -60,4 +63,20 @@ module RailwayTrains
   protected
 
   attr_writer :trains
+
+  def train_classes
+    {
+      'cargo' => CargoTrain,
+      'pass' => PassengerTrain
+    }
+  end
+
+  def get_train_class
+    type_message = "enter train type #{train_classes.keys.join(',')}:"
+    type = Ui.get_input(type_message).downcase
+    train_class = train_classes[type]
+
+    puts 'Unknown train type' unless train_class
+    train_class
+  end
 end
