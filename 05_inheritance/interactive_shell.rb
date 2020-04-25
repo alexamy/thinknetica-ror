@@ -10,20 +10,22 @@ class InteractiveShell
   end
 
   def run
+    puts "Welcome to #{title}"
     loop do
-      puts title
       selected = Ui.choose_from(entries)
       return if selected == stop_word
 
-      method = selected.downcase.gsub(' ', '_')
-
-      puts
-      target.public_send(method)
-      puts
-
-      print 'Press any key'
-      puts
-      gets
+      send_method(selected)
+      Ui.any_key_wait
     end
+  end
+
+  protected
+
+  def send_method(selected)
+    method = selected.downcase.gsub(' ', '_')
+    puts
+    target.public_send(method)
+    puts
   end
 end

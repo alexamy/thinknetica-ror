@@ -25,4 +25,10 @@ module Ui
     print "#{message.capitalize}: "
     gets.chomp
   end
+
+  def self.any_key_wait
+    print 'Press any key'
+    puts
+    gets
+  end
 end
