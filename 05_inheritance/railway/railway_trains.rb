@@ -5,8 +5,7 @@ module RailwayTrains
   def add_train
     number = Ui.get_input('enter train number').to_i
     train_class = get_train_class
-
-    puts 'Unknown train type' unless train_class
+    return unless train_class
 
     trains << train_class.new(number)
   end
@@ -72,7 +71,7 @@ module RailwayTrains
   end
 
   def get_train_class
-    type_message = "enter train type #{train_classes.keys.join(',')}:"
+    type_message = "enter train type (#{train_classes.keys.join(', ')})"
     type = Ui.get_input(type_message).downcase
     train_class = train_classes[type]
 
