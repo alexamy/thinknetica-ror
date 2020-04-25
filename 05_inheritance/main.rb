@@ -12,9 +12,9 @@ require_relative 'railway'
 require_relative 'interactive_shell'
 
 title = 'Railway Manager'
-stop_word = 'Stop'
+stop_word = 'Exit'
 menu = [
-  'Stop',
+  'Exit',
   'Add train',
   'Add station',
   'Add route',

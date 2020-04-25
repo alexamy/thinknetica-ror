@@ -10,13 +10,13 @@ class InteractiveShell
   end
 
   def run
-    puts "Welcome to #{title}"
+    puts "Welcome to #{title}!"
     loop do
       selected = Ui.choose_from(entries)
       return if selected == stop_word
 
       send_method(selected)
-      Ui.any_key_wait
+      Ui.enter_key_wait
     end
   end
 
