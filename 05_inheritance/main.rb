@@ -18,15 +18,17 @@ menu = [
   'Add train',
   'Add station',
   'Add route',
-  'Add carriage',
-  'Remove carriage',
+  'Add station to route',
+  'Remove station from route',
+  'Add carriage to train',
+  'Remove carriage from train',
   'Place train on route',
   'Move train to next station',
   'Move train to previous station',
+  'Show trains',
+  'Show routes',
   'Show stations',
-  'Show trains on station',
-  'Add station to route',
-  'Remove station from route'
+  'Show trains on station'
 ]
 
 railway = Railway.new

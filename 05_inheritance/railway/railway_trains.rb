@@ -5,16 +5,17 @@ module RailwayTrains
   def add_train
     number = Ui.get_input('enter train number').to_i
     trains << Train.new(number)
+    # add train type selector
   end
 
-  def add_carriage
+  def add_carriage_to_train
     return unless validate(:trains)
 
     train = Ui.choose_from(trains)
     train.add_carriage(train.carriage_type.new)
   end
 
-  def remove_carriage
+  def remove_carriage_from_train
     return unless validate(:trains)
 
     train = Ui.choose_from(trains)
@@ -48,6 +49,12 @@ module RailwayTrains
     return 'No route assigned to train' unless train.route
 
     train.go_to_previous_station
+  end
+
+  def show_trains
+    return unless validate(:trains)
+
+    Ui.print_collection(trains)
   end
 
   protected

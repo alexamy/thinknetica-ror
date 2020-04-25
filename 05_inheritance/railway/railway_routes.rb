@@ -5,9 +5,12 @@ module RailwayRoutes
   def add_route
     return unless validate(:stations_for_route)
 
-    puts 'Choose start and end stations:'
-    ends = 2.times.map { Ui.choose_from(stations) }
-    routes << Route.new(*ends)
+    puts 'Choose start station:'
+    start_station = Ui.choose_from(stations)
+    puts 'Choose end station:'
+    end_station = Ui.choose_from(stations)
+
+    routes << Route.new(start_station, end_station)
   end
 
   def add_station_to_route
@@ -26,6 +29,12 @@ module RailwayRoutes
 
     station = Ui.choose_from(intermediate_stations)
     route.remove_station(station)
+  end
+
+  def show_routes
+    return unless validate(:routes)
+
+    Ui.print_collection(routes)
   end
 
   protected
