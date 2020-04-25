@@ -10,7 +10,7 @@ module RailwayStations
   def show_stations
     return unless validate(:stations)
 
-    Ui.print_collection(stations.map(&:name))
+    Ui.print_collection(stations)
   end
 
   def show_trains_on_station
