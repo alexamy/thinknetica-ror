@@ -16,6 +16,8 @@ module Ui
   end
 
   def self.print_collection(collection)
+    puts 'No elements' || return if collection.empty?
+
     collection.each.with_index do |item, index|
       puts "#{index}. #{item}"
     end
