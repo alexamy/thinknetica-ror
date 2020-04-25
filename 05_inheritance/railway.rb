@@ -3,8 +3,6 @@ class Railway
   # - Управлять станциями в маршруте (добавлять, удалять)
   # - Перемещать поезд по маршруту вперед и назад
 
-  # - Просматривать список станций и список поездов на станции
-
   attr_reader :stations, :routes, :trains
 
   def initialize
@@ -49,19 +47,32 @@ class Railway
   end
 
   def place_train_on_route
-    return 'Add trains first' unless validate_trains
     return 'Add routes first' unless validate_routes
+    return 'Add trains first' unless validate_trains
 
     route = Ui.choose_from(routes)
     train = Ui.choose_from(trains)
     train.place_on_route(route)
   end
 
+  # station routines
+
+  def show_stations
+    Ui.print_collection(stations)
+  end
+
+  def show_trains_on_station
+    return 'Add stations first' unless validate_stations
+
+    station = Ui.choose_from(stations)
+    Ui.print_collection(station.trains)
+  end
+
   private
 
   # checks
   def validate_trains
-    trains.size.positive?
+    trains.any?
   end
 
   def validate_stations
@@ -69,7 +80,7 @@ class Railway
   end
 
   def validate_routes
-    routes.size.positive?
+    routes.any?
   end
 
   attr_writer :stations, :routes, :trains
