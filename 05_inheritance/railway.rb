@@ -87,6 +87,15 @@ class Railway
     Ui.print_collection(station.trains)
   end
 
+  # route routines
+
+  def add_station_to_route
+    return 'Add routes first' unless validate_routes
+
+    route = Ui.choose_from(routes)
+    station = choose_from(stations)
+  end
+
   private
 
   # checks
@@ -101,6 +110,8 @@ class Railway
   def validate_routes
     routes.any?
   end
+
+  def station_in_route()
 
   attr_writer :stations, :routes, :trains
 end
