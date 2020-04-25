@@ -25,11 +25,11 @@ module RailwayTrains
   end
 
   def place_train_on_route
-    return unless validate(:routes)
     return unless validate(:trains)
+    return unless validate(:routes)
 
-    route = Ui.choose_from(routes)
     train = Ui.choose_from(trains)
+    route = Ui.choose_from(routes)
     train.place_on_route(route)
   end
 

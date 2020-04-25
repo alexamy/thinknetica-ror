@@ -74,7 +74,10 @@ class Train
   end
 
   def to_s
-    "Train #{number}, type #{carriage_type}"
+    "Train #{number}"\
+    " with #{carriages.size} carriages"\
+    " of type #{carriage_type}"\
+    " #{station ? 'on station ' + station.name : 'is not on route'}"
   end
 
   protected

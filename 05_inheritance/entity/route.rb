@@ -41,7 +41,9 @@ class Route
   end
 
   def to_s
-    "Route #{name} with #{trains.size} stations"
+    "Route with #{stations.size} stations,"\
+    " start: #{stations.first},"\
+    " end: #{stations.last}"
   end
 
   protected

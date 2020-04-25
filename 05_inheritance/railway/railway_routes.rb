@@ -18,14 +18,19 @@ module RailwayRoutes
 
     route = Ui.choose_from(routes)
     station = Ui.choose_from(stations)
-    route.add_station(station) unless route.stations.include?(station)
+    is_inside = route.stations.include?(station)
+
+    puts 'Station is inside route already' if is_inside
+    route.add_station(station) unless is_inside
   end
 
   def remove_station_from_route
     return unless validate(:routes)
 
-    intermediate_stations = intermediate_stations_in_route
-    return 'No intermediate stations in route' if intermediate_stations.empty?
+    route = Ui.choose_from(routes)
+    intermediate_stations = route.intermediate_stations
+
+    puts 'No intermediate stations in route' or return if intermediate_stations.empty?
 
     station = Ui.choose_from(intermediate_stations)
     route.remove_station(station)
@@ -40,9 +45,4 @@ module RailwayRoutes
   protected
 
   attr_writer :routes
-
-  def intermediate_stations_in_route
-    route = Ui.choose_from(routes)
-    route.intermediate_stations
-  end
 end
