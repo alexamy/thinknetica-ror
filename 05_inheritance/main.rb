@@ -3,8 +3,11 @@ require_relative 'station'
 require_relative 'route'
 require_relative 'carriage'
 require_relative 'seed'
-require_relative 'railway'
 require_relative 'ui'
+require_relative 'railway_trains'
+require_relative 'railway_stations'
+require_relative 'railway_routes'
+require_relative 'railway'
 
 railway = Railway.new
 menu = [
