@@ -18,8 +18,9 @@ module RailwayRoutes
   end
 
   def remove_station_from_route
-    intermediate_stations = intermediate_stations_in_route
+    return 'Add routes first' unless validate_routes
 
+    intermediate_stations = intermediate_stations_in_route
     return 'No intermediate stations in route' if intermediate_stations.empty?
 
     station = Ui.choose_from(intermediate_stations)
@@ -35,8 +36,6 @@ module RailwayRoutes
   end
 
   def intermediate_stations_in_route
-    return 'Add routes first' unless validate_routes
-
     route = Ui.choose_from(routes)
     route.intermediate_stations
   end
