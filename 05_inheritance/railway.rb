@@ -1,7 +1,6 @@
 # Main class for managing railway
 class Railway
   # - Управлять станциями в маршруте (добавлять, удалять)
-  # - Перемещать поезд по маршруту вперед и назад
 
   attr_reader :stations, :routes, :trains
 
@@ -53,6 +52,26 @@ class Railway
     route = Ui.choose_from(routes)
     train = Ui.choose_from(trains)
     train.place_on_route(route)
+  end
+
+  def move_train_to_next_station
+    return 'Add trains first' unless validate_trains
+
+    train = Ui.choose_from(trains)
+
+    return 'No route assigned to train' unless train.route
+
+    train.go_to_next_station
+  end
+
+  def move_train_to_previous_station
+    return 'Add trains first' unless validate_trains
+
+    train = Ui.choose_from(trains)
+
+    return 'No route assigned to train' unless train.route
+
+    train.go_to_previous_station
   end
 
   # station routines
