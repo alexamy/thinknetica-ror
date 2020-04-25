@@ -8,13 +8,13 @@ module RailwayStations
   end
 
   def show_stations
-    return 'Add stations first' unless validate_stations
+    return unless validate(:stations)
 
     Ui.print_collection(stations)
   end
 
   def show_trains_on_station
-    return 'Add stations first' unless validate_stations
+    return unless validate(:stations)
 
     station = Ui.choose_from(stations)
     Ui.print_collection(station.trains)
@@ -23,8 +23,4 @@ module RailwayStations
   protected
 
   attr_writer :stations
-
-  def validate_stations
-    stations.any?
-  end
 end

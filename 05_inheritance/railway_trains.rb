@@ -8,22 +8,22 @@ module RailwayTrains
   end
 
   def add_carriage
-    return 'Add trains first' unless validate_trains
+    return unless validate(:trains)
 
     train = Ui.choose_from(trains)
     train.add_carriage(train.carriage_type.new)
   end
 
   def remove_carriage
-    return 'Add trains first' unless validate_trains
+    return unless validate(:trains)
 
     train = Ui.choose_from(trains)
     train.remove_carriage
   end
 
   def place_train_on_route
-    return 'Add routes first' unless validate_routes
-    return 'Add trains first' unless validate_trains
+    return unless validate(:routes)
+    return unless validate(:trains)
 
     route = Ui.choose_from(routes)
     train = Ui.choose_from(trains)
@@ -31,7 +31,7 @@ module RailwayTrains
   end
 
   def move_train_to_next_station
-    return 'Add trains first' unless validate_trains
+    return unless validate(:trains)
 
     train = Ui.choose_from(trains)
 
@@ -41,7 +41,7 @@ module RailwayTrains
   end
 
   def move_train_to_previous_station
-    return 'Add trains first' unless validate_trains
+    return unless validate(:trains)
 
     train = Ui.choose_from(trains)
 
@@ -53,8 +53,4 @@ module RailwayTrains
   protected
 
   attr_writer :trains
-
-  def validate_trains
-    trains.any?
-  end
 end

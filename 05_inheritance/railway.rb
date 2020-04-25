@@ -3,6 +3,7 @@ class Railway
   include RailwayStations
   include RailwayRoutes
   include RailwayTrains
+  include RailwayValidator
 
   def initialize
     @stations = []

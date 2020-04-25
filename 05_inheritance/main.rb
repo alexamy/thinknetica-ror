@@ -7,6 +7,7 @@ require_relative 'ui'
 require_relative 'railway_trains'
 require_relative 'railway_stations'
 require_relative 'railway_routes'
+require_relative 'railway_validator'
 require_relative 'railway'
 
 railway = Railway.new

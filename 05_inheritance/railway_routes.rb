@@ -3,14 +3,14 @@ module RailwayRoutes
   attr_reader :routes
 
   def add_route
-    return 'Add at least 2 stations first' unless validate_stations_for_route
+    return unless validate(:stations_for_route)
 
     ends = 2.times.map { Ui.choose_from(stations) }
     routes << Route.new(*ends)
   end
 
   def add_station_to_route
-    return 'Add routes first' unless validate_routes
+    return unless validate(:routes)
 
     route = Ui.choose_from(routes)
     station = Ui.choose_from(stations)
@@ -18,7 +18,7 @@ module RailwayRoutes
   end
 
   def remove_station_from_route
-    return 'Add routes first' unless validate_routes
+    return unless validate(:routes)
 
     intermediate_stations = intermediate_stations_in_route
     return 'No intermediate stations in route' if intermediate_stations.empty?
@@ -30,14 +30,6 @@ module RailwayRoutes
   protected
 
   attr_writer :routes
-
-  def validate_routes
-    routes.any?
-  end
-
-  def validate_stations_for_route
-    stations.size >= 2
-  end
 
   def intermediate_stations_in_route
     route = Ui.choose_from(routes)
