@@ -32,11 +32,7 @@ loop do
   return if selected == 'Stop'
 
   method = selected.downcase.gsub(' ', '_')
-  result = railway.public_send(method)
-
-  puts
-  puts result
-  puts
+  railway.public_send(method)
 
   print 'Press any key'
   puts
