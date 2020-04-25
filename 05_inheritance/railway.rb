@@ -93,7 +93,20 @@ class Railway
     return 'Add routes first' unless validate_routes
 
     route = Ui.choose_from(routes)
-    station = choose_from(stations)
+    station = Ui.choose_from(stations)
+    route.add_station(station) unless route.stations.include?(station)
+  end
+
+  def remove_station_from_route
+    return 'Add routes first' unless validate_routes
+
+    route = Ui.choose_from(routes)
+    intermediate_stations = route.intermediate_stations
+
+    return 'No intermediate stations in route' if intermediate_stations.empty?
+
+    station = Ui.choose_from(intermediate_stations)
+    route.delete_station(station)
   end
 
   private
@@ -110,8 +123,6 @@ class Railway
   def validate_routes
     routes.any?
   end
-
-  def station_in_route()
 
   attr_writer :stations, :routes, :trains
 end

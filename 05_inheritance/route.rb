@@ -36,6 +36,10 @@ class Route
     stations[current_index - 1]
   end
 
+  def intermediate_stations
+    stations[1..-2]
+  end
+
   protected
 
   attr_writer :stations
