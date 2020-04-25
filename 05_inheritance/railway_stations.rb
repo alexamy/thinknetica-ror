@@ -8,6 +8,8 @@ module RailwayStations
   end
 
   def show_stations
+    return 'Add stations first' unless validate_stations
+
     Ui.print_collection(stations)
   end
 
@@ -23,6 +25,6 @@ module RailwayStations
   attr_writer :stations
 
   def validate_stations
-    stations.size >= 2
+    stations.any?
   end
 end

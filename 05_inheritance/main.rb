@@ -33,8 +33,12 @@ loop do
 
   method = selected.downcase.gsub(' ', '_')
   result = railway.public_send(method)
+
+  puts
   puts result
+  puts
 
   print 'Press any key'
-  STDIN.getc
+  puts
+  gets
 end
