@@ -1,5 +1,6 @@
 # Train can move, has carriage and optional route
 class Train
+  include InstanceCounter
   include Manufacturer
 
   attr_reader :number, :type, :carriages,
@@ -9,6 +10,7 @@ class Train
     @number = number
     @carriages = []
     @velocity = 0
+    register_instance
   end
 
   def carriage_type
