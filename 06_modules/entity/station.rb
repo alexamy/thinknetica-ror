@@ -1,9 +1,9 @@
 # Station belongs to route and can add and departure trains
 class Station
+  include InstanceCounter
+
   class << self
-    def all
-      @all ||= []
-    end
+    alias all instances
   end
 
   attr_reader :name, :trains
@@ -11,7 +11,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
-    self.class.all << self
+    register_instance
   end
 
   def add_train(train)
