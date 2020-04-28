@@ -6,6 +6,10 @@ class Train
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
+  def self.find(number)
+    instances.find { |train| train.number == number }
+  end
+
   def initialize(number)
     @number = number
     @carriages = []
