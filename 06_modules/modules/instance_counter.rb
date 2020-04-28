@@ -8,14 +8,18 @@ module InstanceCounter
   # Instance methods
   module InstanceMethods
     def register_instance
-      self.class.instances << self
+      self.class.pool << self
     end
   end
 
   # Class methods
   module ClassMethods
+    def pool
+      @pool ||= []
+    end
+
     def instances
-      @instances ||= []
+      pool.size
     end
   end
 end

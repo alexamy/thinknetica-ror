@@ -3,7 +3,7 @@ class Station
   include InstanceCounter
 
   class << self
-    alias all instances
+    alias all pool
   end
 
   attr_reader :name, :trains

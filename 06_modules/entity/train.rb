@@ -7,7 +7,7 @@ class Train
               :velocity, :route, :station
 
   def self.find(number)
-    instances.find { |train| train.number == number }
+    pool.find { |train| train.number == number }
   end
 
   def initialize(number)
