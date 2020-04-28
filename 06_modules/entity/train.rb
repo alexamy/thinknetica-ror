@@ -1,5 +1,7 @@
 # Train can move, has carriage and optional route
 class Train
+  include Manufacturer
+
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 

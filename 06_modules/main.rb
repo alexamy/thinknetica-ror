@@ -1,6 +1,7 @@
 require_relative 'seed'
 require_relative 'ui/ui'
 require_relative 'ui/interactive_shell'
+require_relative 'modules/manufacturer'
 require_relative 'entity/train'
 require_relative 'entity/station'
 require_relative 'entity/route'
