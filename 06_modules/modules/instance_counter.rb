@@ -2,11 +2,13 @@
 module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
+    base.include InstanceMethods
   end
 
   # Instance methods
   module InstanceMethods
+    protected
+
     def register_instance
       self.class.pool << self
     end
