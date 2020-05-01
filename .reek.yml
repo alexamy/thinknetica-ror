@@ -1,3 +1,5 @@
 detectors:
   UncommunicativeVariableName:
     enabled: false
+  MissingSafeMethod:
+    enabled: false
