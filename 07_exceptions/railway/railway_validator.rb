@@ -30,18 +30,8 @@ module RailwayValidator
     }
   end
 
-  def validate(key)
-    validate!("#{key}_validator")
-    true
-  rescue NoMethodError
-    raise
-  rescue StandardError => e
-    puts e.message
-    false
-  end
-
-  def validate!(validator)
-    validation = send(validator)
+  def validate!(key)
+    validation = send("#{key}_validator")
     raise validation[:message] unless validation[:success]
   end
 end
