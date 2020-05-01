@@ -1,6 +1,7 @@
 # Station belongs to route and can add and departure trains
 class Station
   include InstanceCounter
+  include InitValidator
 
   class << self
     alias all pool
@@ -11,6 +12,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     register_instance
   end
 
@@ -31,6 +33,10 @@ class Station
   end
 
   protected
+
+  def validate!
+    raise 'Empty name!' unless name
+  end
 
   attr_writer :name, :trains
 end
