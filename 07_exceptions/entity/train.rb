@@ -6,6 +6,8 @@ class Train
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
+  NUMBER_FORMAT = /[a-z\d]{3}-?[a-z\d]{2}/i.freeze
+
   def self.find(number)
     pool.find { |train| train.number == number }
   end
@@ -14,6 +16,8 @@ class Train
     @number = number
     @carriages = []
     @velocity = 0
+
+    validate!
     register_instance
   end
 
@@ -81,6 +85,13 @@ class Train
     route&.station_previous(station)
   end
 
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
+  end
+
   def to_s
     "Train #{number}"\
     " with #{carriages.size} carriages"\
@@ -93,6 +104,11 @@ class Train
   # Only class can write its values directly
   attr_writer :number, :carriages,
               :velocity, :route, :station
+
+  def validate!
+    raise 'Empty number' if number.nil?
+    raise 'Bad number format' if number !~ NUMBER_FORMAT
+  end
 end
 
 # Cargo train
