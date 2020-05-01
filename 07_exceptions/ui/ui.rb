@@ -1,12 +1,17 @@
 # UI helper functions
 module Ui
   def self.choose_from(collection)
-    loop do
-      result = select_in_collection(collection)
-      return result if result
+    choose_from!(collection)
+  rescue StandardError => e
+    puts e.message
+    retry
+  end
 
-      puts 'Unknown index'
-    end
+  def self.choose_from!(collection)
+    result = select_in_collection(collection)
+    raise 'Unknown index' unless result
+
+    result
   end
 
   def self.select_in_collection(collection)
@@ -16,7 +21,13 @@ module Ui
   end
 
   def self.print_collection(collection)
-    puts 'No elements' or return if collection.empty?
+    print_collection!(collection)
+  rescue StandardError => e
+    puts e.message
+  end
+
+  def self.print_collection!(collection)
+    raise 'No elements' if collection.empty?
 
     collection.each.with_index do |item, index|
       puts "#{index}. #{item}"
