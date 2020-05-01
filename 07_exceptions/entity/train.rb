@@ -2,6 +2,7 @@
 class Train
   include InstanceCounter
   include Manufacturer
+  include InitValidator
 
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
@@ -85,13 +86,6 @@ class Train
     route&.station_previous(station)
   end
 
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
-  end
-
   def to_s
     "Train #{number}"\
     " with #{carriages.size} carriages"\
@@ -106,8 +100,8 @@ class Train
               :velocity, :route, :station
 
   def validate!
-    raise 'Empty number' if number.nil?
-    raise 'Bad number format' if number !~ NUMBER_FORMAT
+    raise 'Empty number!' unless number
+    raise 'Bad number format!' unless number =~ NUMBER_FORMAT
   end
 end
 
