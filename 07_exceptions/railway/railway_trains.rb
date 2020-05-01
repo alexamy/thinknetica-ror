@@ -38,8 +38,7 @@ module RailwayTrains
     return unless validate(:trains)
 
     train = Ui.choose_from(trains)
-
-    return 'No route assigned to train' unless train.route
+    route_assigned!(train)
 
     train.go_to_next_station
   end
@@ -48,8 +47,7 @@ module RailwayTrains
     return unless validate(:trains)
 
     train = Ui.choose_from(trains)
-
-    return 'No route assigned to train' unless train.route
+    route_assigned!(train)
 
     train.go_to_previous_station
   end
@@ -64,6 +62,17 @@ module RailwayTrains
 
   attr_writer :trains
 
+  def route_assigned!(train)
+    raise 'No route assigned to train' unless train.route
+  end
+
+  def known_train!(type)
+    train_class = train_classes[type]
+    raise 'Unknown train type' unless train_class
+
+    train_class
+  end
+
   def train_classes
     {
       'cargo' => CargoTrain,
@@ -74,10 +83,6 @@ module RailwayTrains
   def get_train_class
     type_message = "enter train type (#{train_classes.keys.join(', ')})"
     type = Ui.get_input(type_message).downcase
-    train_class = train_classes[type]
-
-    raise 'Unknown train type' unless train_class
-
-    train_class
+    known_train!(type)
   end
 end

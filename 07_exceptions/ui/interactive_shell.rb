@@ -27,5 +27,9 @@ class InteractiveShell
     puts
     target.public_send(method)
     puts
+  rescue NoMethodError
+    raise
+  rescue StandardError => e
+    puts e.message
   end
 end
