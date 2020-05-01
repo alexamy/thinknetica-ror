@@ -7,14 +7,14 @@ class Train
   attr_reader :number, :type, :carriages,
               :velocity, :route, :station
 
-  NUMBER_FORMAT = /[a-z\d]{3}-?[a-z\d]{2}/i.freeze
+  NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
 
   def self.find(number)
     pool.find { |train| train.number == number }
   end
 
   def initialize(number)
-    @number = number
+    @number = number.to_s
     @carriages = []
     @velocity = 0
 

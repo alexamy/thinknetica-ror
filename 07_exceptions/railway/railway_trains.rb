@@ -3,11 +3,12 @@ module RailwayTrains
   attr_reader :trains
 
   def add_train
-    number = Ui.get_input('enter train number').to_i
     train_class = get_train_class
-    return unless train_class
-
+    number = Ui.get_input('enter train number')
     trains << train_class.new(number)
+  rescue StandardError => e
+    puts e.message
+    retry
   end
 
   def add_carriage_to_train
@@ -75,7 +76,8 @@ module RailwayTrains
     type = Ui.get_input(type_message).downcase
     train_class = train_classes[type]
 
-    puts 'Unknown train type' unless train_class
+    raise 'Unknown train type' unless train_class
+
     train_class
   end
 end
