@@ -19,8 +19,13 @@ module Ui
     raise 'No elements' if collection.empty?
 
     collection.each.with_index do |item, index|
-      puts "#{index}. #{item}"
+      Ui.print_collection_element(item, index)
+      yield(item, index) if block_given?
     end
+  end
+
+  def self.print_collection_element(item, index)
+    puts "#{index}. #{item}"
   end
 
   def self.get_input(message)

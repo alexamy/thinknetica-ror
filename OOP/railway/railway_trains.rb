@@ -56,7 +56,9 @@ module RailwayTrains
   def show_trains
     validate! :trains
 
-    Ui.print_collection(trains)
+    Ui.print_collection(trains) do |train|
+      train.each_carriage { |carriage| puts carriage }
+    end
   end
 
   protected

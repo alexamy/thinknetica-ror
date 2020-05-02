@@ -12,6 +12,12 @@ class Carriage
       name: key
     }
   end
+
+  def to_s
+    key = self.class.space_key
+    total = send(key)
+    "Carriage of type #{self.class} with #{total} #{key} total"
+  end
 end
 
 # Cargo carriage
