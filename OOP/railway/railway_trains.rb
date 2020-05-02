@@ -15,8 +15,9 @@ module RailwayTrains
     validate! :trains
 
     train = Ui.choose_from(trains)
-
-    train.add_carriage(train.carriage_type.new)
+    carriage = train.carriage_type
+    amount = Ui.get_input("enter #{carriage.space_key} amount")
+    train.add_carriage(carriage.new(amount))
   end
 
   def remove_carriage_from_train

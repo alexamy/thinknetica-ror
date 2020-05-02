@@ -19,7 +19,7 @@ class CargoCarriage < Carriage
   attr_reader :volume, :volume_occupied
 
   def initialize(volume)
-    @volume = volume
+    @volume = volume.to_i
     @volume_occupied = 0
     validate!
   end
@@ -56,7 +56,7 @@ class PassengerCarriage < Carriage
   attr_reader :seats, :seats_occupied
 
   def initialize(seats)
-    @seats = seats
+    @seats = seats.to_i
     @seats_occupied = 0
     validate!
   end
