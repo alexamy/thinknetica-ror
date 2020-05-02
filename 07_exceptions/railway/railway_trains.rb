@@ -12,22 +12,22 @@ module RailwayTrains
   end
 
   def add_carriage_to_train
-    validate!(:trains)
+    validate! :trains
 
     train = Ui.choose_from(trains)
     train.add_carriage(train.carriage_type.new)
   end
 
   def remove_carriage_from_train
-    validate!(:trains)
+    validate! :trains
 
     train = Ui.choose_from(trains)
     train.remove_carriage
   end
 
   def place_train_on_route
-    validate!(:trains)
-    validate!(:routes)
+    validate! :trains
+    validate! :routes
 
     train = Ui.choose_from(trains)
     route = Ui.choose_from(routes)
@@ -35,7 +35,7 @@ module RailwayTrains
   end
 
   def move_train_to_next_station
-    validate!(:trains)
+    validate! :trains
 
     train = Ui.choose_from(trains)
     route_assigned!(train)
@@ -44,7 +44,7 @@ module RailwayTrains
   end
 
   def move_train_to_previous_station
-    validate!(:trains)
+    validate! :trains
 
     train = Ui.choose_from(trains)
     route_assigned!(train)
@@ -53,7 +53,7 @@ module RailwayTrains
   end
 
   def show_trains
-    validate!(:trains)
+    validate! :trains
 
     Ui.print_collection(trains)
   end

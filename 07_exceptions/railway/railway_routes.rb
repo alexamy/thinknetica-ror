@@ -3,7 +3,7 @@ module RailwayRoutes
   attr_reader :routes
 
   def add_route
-    validate!(:stations_for_route)
+    validate! :stations_for_route
 
     puts 'Choose start station:'
     start_station = Ui.choose_from(stations)
@@ -14,7 +14,7 @@ module RailwayRoutes
   end
 
   def add_station_to_route
-    validate!(:routes)
+    validate! :routes
 
     route = Ui.choose_from(routes)
     station = Ui.choose_from(stations)
@@ -25,7 +25,7 @@ module RailwayRoutes
   end
 
   def remove_station_from_route
-    validate!(:routes)
+    validate! :routes
 
     route = Ui.choose_from(routes)
     intermediate_stations = route.intermediate_stations
@@ -37,7 +37,7 @@ module RailwayRoutes
   end
 
   def show_routes
-    validate!(:routes)
+    validate! :routes
 
     Ui.print_collection(routes)
   end
