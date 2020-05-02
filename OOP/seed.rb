@@ -3,36 +3,33 @@ class Seed
   attr_accessor :trains, :stations, :routes, :carriages
 
   def initialize
-    @stations = sample_stations
-    @routes = sample_routes
-    @trains = sample_trains
-    @carriages = sample_carriages
+    @stations = Seed.sample_stations
+    @routes = Seed.sample_routes(@stations)
+    @trains = Seed.sample_trains
+    @carriages = Seed.sample_carriages
   end
 
-  def sample_stations
+  def self.sample_stations
     %w[Stockton Minneapolis Garland Seattle Jacksonville]
       .map { |station| Station.new(station) }
   end
 
-  def sample_routes
+  def self.sample_routes(stations)
     [Route.new(stations.first, stations.last)]
   end
 
-  def sample_trains
-    [
-      CargoTrain.new(101),
-      CargoTrain.new(202),
-      PassengerTrain.new(303),
-      PassengerTrain.new(404)
-    ]
+  def self.sample_trains
+    types = [CargoTrain, PassengerTrain]
+    (1..9).map do |i|
+      types.sample.new("#{i}00-#{i}#{i}")
+    end
   end
 
-  def sample_carriages
-    [
-      CargoCarriage.new,
-      CargoCarriage.new,
-      PassengerCarriage.new,
-      PassengerCarriage.new
-    ]
+  def self.sample_carriages
+    types = [CargoCarriage, PassengerCarriage]
+    carriages = 10.step(100, 5).map do |i|
+      types.sample.new(i) if rand > 0.5
+    end
+    carriages.compact
   end
 end
