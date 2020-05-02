@@ -36,6 +36,11 @@ menu = [
   'Show trains on station'
 ]
 
+puts 'Print test data:'
+puts
+Seed.new.iterate_all
+puts
+
 railway = Railway.new
 shell = InteractiveShell.new(railway, title, menu, stop_word)
 shell.run
