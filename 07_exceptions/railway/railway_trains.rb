@@ -26,8 +26,7 @@ module RailwayTrains
   end
 
   def place_train_on_route
-    validate! :trains
-    validate! :routes
+    validate! :trains, :routes
 
     train = Ui.choose_from(trains)
     route = Ui.choose_from(routes)

@@ -30,8 +30,10 @@ module RailwayValidator
     }
   end
 
-  def validate!(key)
-    validation = send("#{key}_validator")
-    raise validation[:message] unless validation[:success]
+  def validate!(*keys)
+    keys.each do |key|
+      validation = send("#{key}_validator")
+      raise validation[:message] unless validation[:success]
+    end
   end
 end
