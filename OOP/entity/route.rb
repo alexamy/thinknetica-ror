@@ -1,11 +1,13 @@
 # Route has stations
 class Route
   include InstanceCounter
+  include InitValidator
 
   attr_reader :stations
 
   def initialize(station_start, station_end)
     @stations = [station_start, station_end]
+    validate!
     register_instance
   end
 
@@ -52,4 +54,11 @@ class Route
   protected
 
   attr_writer :stations
+
+  def validate!
+    correct_type = stations.all? do |station|
+      station.class.ancestors.include?(Station)
+    end
+    raise 'Objects in stations array must have Station class' unless correct_type
+  end
 end
