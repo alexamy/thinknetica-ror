@@ -1,5 +1,7 @@
 # Seed data for testing
 class Seed
+  include SeedStationsIterator
+
   attr_accessor :trains, :stations, :routes, :carriages
 
   def initialize
@@ -19,32 +21,6 @@ class Seed
     stations[0].add_train(trains[1])
     stations[1].add_train(trains[2])
     stations[1].add_train(trains[3])
-  end
-
-  def iterate_all
-    stations.each do |station|
-      puts "Station #{station.name}:"
-      station.each_train do |train|
-        print_train_info(train)
-        train.each_carriage do |carriage, index|
-          print "Carriage #{index} of type #{carriage.class} "
-          print_carriage_info(carriage)
-        end
-      end
-    end
-  end
-
-  def print_train_info(train)
-    print "Train #{train.number} "
-    print "has #{train.carriages.size} carriage(s) "
-    puts "of type #{train.carriage_type}"
-  end
-
-  def print_carriage_info(carriage)
-    data = carriage.space_data
-    print "has #{data[:total]} #{data[:name]} total "
-    print "with #{data[:occupied]} occupied "
-    puts "and #{data[:free]} free"
   end
 
   def self.sample_stations
