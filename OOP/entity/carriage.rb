@@ -28,6 +28,15 @@ class CargoCarriage < Carriage
     volume - volume_occupied
   end
 
+  def space_data
+    {
+      total: volume,
+      occupied: volume_occupied,
+      free: volume_free,
+      name: 'volume'
+    }
+  end
+
   protected
 
   attr_writer :volume, :volume_occupied
@@ -55,6 +64,15 @@ class PassengerCarriage < Carriage
 
   def seats_free
     seats - seats_occupied
+  end
+
+  def space_data
+    {
+      total: seats,
+      occupied: seats_occupied,
+      free: seats_free,
+      name: 'seats'
+    }
   end
 
   protected
