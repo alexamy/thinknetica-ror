@@ -15,8 +15,8 @@ class Carriage
 
   def to_s
     key = self.class.space_key
-    total = send(key)
-    "Carriage of type #{self.class} with #{total} #{key} total"
+    data = space_data
+    "Carriage of type #{self.class} with #{data[:total]} #{key} total, #{data[:free]} free"
   end
 end
 
@@ -31,6 +31,7 @@ class CargoCarriage < Carriage
   end
 
   def occupy_volume(volume_add)
+    volume_add = volume_add.to_i
     raise 'Added volume must be positive!' unless volume_add.positive?
     raise 'All volume is occupied!' if volume_occupied == volume
 
@@ -67,7 +68,7 @@ class PassengerCarriage < Carriage
     validate!
   end
 
-  def occupy_seat
+  def occupy_seats
     raise 'All seats occupied!' if seats_occupied == seats
 
     self.seats_occupied += 1

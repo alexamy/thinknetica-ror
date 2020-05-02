@@ -27,6 +27,30 @@ module RailwayTrains
     train.remove_carriage
   end
 
+  def use_space_in_carriage
+    validate! :trains
+
+    train = Ui.choose_from(trains)
+    carriages = train.carriages
+
+    raise 'No carriages!' if carriages.empty?
+
+    carriage = Ui.choose_from(carriages)
+    space_data = carriage.space_data
+
+    raise 'All space occupied!' if space_data[:free].zero?
+
+    key = space_data[:name]
+    method = "occupy_#{key}".to_sym
+
+    if key == 'seats'
+      carriage.send(method)
+    else
+      amount = Ui.get_input('how much space to occupy')
+      carriage.send(method, amount)
+    end
+  end
+
   def place_train_on_route
     validate! :trains, :routes
 

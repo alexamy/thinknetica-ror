@@ -27,6 +27,7 @@ menu = [
   'Remove station from route',
   'Add carriage to train',
   'Remove carriage from train',
+  'Use space in carriage',
   'Place train on route',
   'Move train to next station',
   'Move train to previous station',
