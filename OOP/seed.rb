@@ -26,11 +26,9 @@ class Seed
       puts "Station #{station.name}:"
       station.each_train do |train|
         print_train_info(train)
-        carriage_idx = 0
-        train.each_carriage do |carriage|
-          print "Carriage #{carriage_idx} of type #{carriage.class} "
+        train.each_carriage do |carriage, index|
+          print "Carriage #{index} of type #{carriage.class} "
           print_carriage_info(carriage)
-          carriage_idx += 1
         end
       end
     end

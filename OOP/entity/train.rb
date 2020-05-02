@@ -54,7 +54,9 @@ class Train
   end
 
   def each_carriage
-    carriages.each { |carriage| yield carriage }
+    carriages.each_with_index do |carriage, index|
+      yield(carriage, index)
+    end
   end
 
   def to_s
