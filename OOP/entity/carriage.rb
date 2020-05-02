@@ -1,5 +1,6 @@
 # Carriage for train
 class Carriage
+  include Manufacturer
 end
 
 # Cargo carriage

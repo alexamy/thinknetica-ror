@@ -1,10 +1,17 @@
 # Station belongs to route and can add and departure trains
 class Station
+  include InstanceCounter
+
+  class << self
+    alias all pool
+  end
+
   attr_reader :name, :trains
 
   def initialize(name)
     @name = name
     @trains = []
+    register_instance
   end
 
   def add_train(train)
