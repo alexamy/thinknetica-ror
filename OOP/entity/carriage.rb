@@ -3,9 +3,8 @@ class Carriage
   include Manufacturer
   include InitValidator
 
-  protected
-
-  def space_data_hash(key)
+  def space_data
+    key = self.class.space_key
     {
       total: send(key),
       occupied: send("#{key}_occupied"),
@@ -39,8 +38,8 @@ class CargoCarriage < Carriage
     volume - volume_occupied
   end
 
-  def space_data
-    space_data_hash('volume')
+  def self.space_key
+    'volume'
   end
 
   protected
@@ -72,8 +71,8 @@ class PassengerCarriage < Carriage
     seats - seats_occupied
   end
 
-  def space_data
-    space_data_hash('seats')
+  def self.space_key
+    'seats'
   end
 
   protected

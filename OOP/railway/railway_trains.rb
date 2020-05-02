@@ -15,6 +15,7 @@ module RailwayTrains
     validate! :trains
 
     train = Ui.choose_from(trains)
+
     train.add_carriage(train.carriage_type.new)
   end
 
