@@ -10,7 +10,9 @@ module RailwayStations
   def show_stations
     validate! :stations
 
-    Ui.print_collection(stations)
+    Ui.print_collection(stations) do |station|
+        station.each_train { |train| puts train }
+    end
   end
 
   def show_trains_on_station

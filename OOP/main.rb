@@ -32,8 +32,7 @@ menu = [
   'Move train to previous station',
   'Show trains',
   'Show routes',
-  'Show stations',
-  'Show trains on station'
+  'Show stations'
 ]
 
 puts 'Print test data:'
