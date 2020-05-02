@@ -1,11 +1,11 @@
 # Train can move, has carriage and optional route
 class Train
+  include TrainRoute
   include InstanceCounter
   include Manufacturer
   include InitValidator
 
-  attr_reader :number, :type, :carriages,
-              :velocity, :route, :station
+  attr_reader :number, :type, :carriages, :velocity
 
   NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
 
@@ -53,40 +53,6 @@ class Train
     carriages.pop if stopped? && carriage?
   end
 
-  def place_on_route(route)
-    self.route = route
-
-    station&.departure_train(self)
-    self.station = self.route.stations.first
-    station.add_train(self)
-  end
-
-  def go_to_next_station
-    station_next = route&.station_next(station)
-    raise 'No next station' unless station_next
-
-    station.departure_train(self)
-    self.station = station_next
-    station.add_train(self)
-  end
-
-  def go_to_previous_station
-    station_previous = route&.station_previous(station)
-    raise 'No previous station' unless station_previous
-
-    station.departure_train(self)
-    self.station = station_previous
-    station.add_train(self)
-  end
-
-  def station_next
-    route&.station_next(station)
-  end
-
-  def station_previous
-    route&.station_previous(station)
-  end
-
   def each_carriage
     carriages.each { |carriage| yield carriage }
   end
@@ -101,8 +67,7 @@ class Train
   protected
 
   # Only class can write its values directly
-  attr_writer :number, :carriages,
-              :velocity, :route, :station
+  attr_writer :number, :carriages, :velocity
 
   def validate!
     raise 'Empty number!' unless number
