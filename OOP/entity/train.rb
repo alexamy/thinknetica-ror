@@ -86,6 +86,10 @@ class Train
     route&.station_previous(station)
   end
 
+  def each_carriage
+    carriages.each { |carriage| yield carriage }
+  end
+
   def to_s
     "Train #{number}"\
     " with #{carriages.size} carriages"\
