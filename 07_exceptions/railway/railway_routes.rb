@@ -19,9 +19,9 @@ module RailwayRoutes
     route = Ui.choose_from(routes)
     station = Ui.choose_from(stations)
     is_inside = route.stations.include?(station)
+    raise 'Station is inside route already' if is_inside
 
-    puts 'Station is inside route already' if is_inside
-    route.add_station(station) unless is_inside
+    route.add_station(station)
   end
 
   def remove_station_from_route
@@ -30,7 +30,7 @@ module RailwayRoutes
     route = Ui.choose_from(routes)
     intermediate_stations = route.intermediate_stations
 
-    puts 'No intermediate stations in route' or return if intermediate_stations.empty?
+    raise 'No intermediate stations in route' if intermediate_stations.empty?
 
     station = Ui.choose_from(intermediate_stations)
     route.remove_station(station)
