@@ -43,7 +43,8 @@ class Train
   end
 
   def add_carriage(carriage)
-    return unless stopped? && carriage.class == carriage_type
+    raise 'Train must be stopped' unless stopped?
+    raise "Can add only #{carriage_type}" unless carriage.class == carriage_type
 
     carriages << carriage
   end
@@ -62,7 +63,7 @@ class Train
 
   def go_to_next_station
     station_next = route&.station_next(station)
-    return unless station_next
+    raise 'No next station' unless station_next
 
     station.departure_train(self)
     self.station = station_next
@@ -71,7 +72,7 @@ class Train
 
   def go_to_previous_station
     station_previous = route&.station_previous(station)
-    return unless station_previous
+    raise 'No previous station' unless station_previous
 
     station.departure_train(self)
     self.station = station_previous
