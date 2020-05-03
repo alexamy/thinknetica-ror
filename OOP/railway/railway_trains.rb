@@ -30,15 +30,7 @@ module RailwayTrains
     raise 'No carriages!' if carriages.empty?
 
     carriage = Ui.choose_from(carriages)
-    space_data = carriage.space_data
-    method = "occupy_#{space_data[:name]}".to_sym
-
-    if key == 'seats'
-      carriage.send(method)
-    else
-      amount = Ui.get_input('how much space to occupy')
-      carriage.send(method, amount)
-    end
+    occupy_carriage(carriage)
   end
 
   def place_train_on_route
@@ -77,6 +69,18 @@ module RailwayTrains
   end
 
   protected
+
+  def occupy_carriage(carriage)
+    key = carriage.space_data[:name]
+    method = "occupy_#{key}".to_sym
+
+    if carriage.class == PassengerCarriage
+      carriage.send(method)
+    else
+      amount = Ui.get_input('how much space to occupy')
+      carriage.send(method, amount)
+    end
+  end
 
   attr_writer :trains
 
