@@ -14,7 +14,7 @@ module RailwayTrains
   def add_carriage_to_train
     train = select_train
     carriage = train.carriage_type
-    amount = Ui.get_input("enter #{carriage.space_key} amount")
+    amount = Ui.get_input("enter #{carriage::SPACE_KEY} amount")
     train.add_carriage(carriage.new(amount))
   end
 
@@ -71,13 +71,14 @@ module RailwayTrains
   protected
 
   def occupy_carriage(carriage)
-    method = "occupy_#{carriage.space_key}".to_sym
+    key = "occupy_#{carriage.space_key}"
+    method = carriage.method(key.to_sym)
 
-    if carriage.class == PassengerCarriage
-      carriage.send(method)
-    else
+    if carriage.class == CargoCarriage
       amount = Ui.get_input('how much space to occupy')
-      carriage.send(method, amount)
+      method.call(amount)
+    else
+      method.call
     end
   end
 
