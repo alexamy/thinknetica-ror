@@ -71,8 +71,7 @@ module RailwayTrains
   protected
 
   def occupy_carriage(carriage)
-    key = carriage.space_data[:name]
-    method = "occupy_#{key}".to_sym
+    method = "occupy_#{carriage.space_key}".to_sym
 
     if carriage.class == PassengerCarriage
       carriage.send(method)
