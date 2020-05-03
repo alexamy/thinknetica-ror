@@ -2,56 +2,53 @@
 class Carriage
   include Manufacturer
   include InitValidator
+  include CarriageSpace
 
   def space_data
-    key = self.class.space_key
     {
-      total: send(key),
-      occupied: send("#{key}_occupied"),
-      free: send("#{key}_free"),
-      name: key
+      total: space,
+      occupied: space_occupied,
+      free: space_free,
+      name: self.class.space_key
     }
   end
 
   def to_s
     key = self.class.space_key
     data = space_data
-    "Carriage of type #{self.class} with #{data[:total]} #{key} total, #{data[:free]} free"
+
+    "Carriage of type #{self.class} "\
+    "with #{data[:total]} #{space_data[:name]} total, "\
+    "#{data[:free]} free"
   end
 end
 
 # Cargo carriage
 class CargoCarriage < Carriage
-  attr_reader :volume, :volume_occupied
+  alias volume space
+  alias volume_occupied space_occupied
+  alias volume_free space_free
 
   def initialize(volume)
-    @volume = volume.to_i
-    @volume_occupied = 0
+    @space = volume.to_i
+    @space_occupied = 0
     validate!
-  end
-
-  def occupy_volume(volume_add)
-    volume_add = volume_add.to_i
-    raise 'Added volume must be positive!' unless volume_add.positive?
-    raise 'All volume is occupied!' if volume_occupied == volume
-
-    volume_new = volume_occupied + volume_add
-    raise 'Initial volume exceeded!' if volume_new > volume
-
-    self.volume_occupied = volume_new
-  end
-
-  def volume_free
-    volume - volume_occupied
   end
 
   def self.space_key
     'volume'
   end
 
+  def occupy_volume(volume_add)
+    occupy_space(volume_add.to_i)
+  rescue StandardError => e
+    raise e.message.gsub('space', self.class.space_key)
+  end
+
   protected
 
-  attr_writer :volume, :volume_occupied
+  alias volume= space=
+  alias volume_occupied= space_occupied=
 
   def validate!
     raise 'Volume must be greater than 0!' unless volume.positive?
@@ -60,31 +57,30 @@ end
 
 # Passenger carriage
 class PassengerCarriage < Carriage
-  attr_reader :seats, :seats_occupied
+  alias seats space
+  alias seats_occupied space_occupied
+  alias seats_free space_free
 
   def initialize(seats)
-    @seats = seats.to_i
-    @seats_occupied = 0
+    @space = seats.to_i
+    @space_occupied = 0
     validate!
-  end
-
-  def occupy_seats
-    raise 'All seats occupied!' if seats_occupied == seats
-
-    self.seats_occupied += 1
-  end
-
-  def seats_free
-    seats - seats_occupied
   end
 
   def self.space_key
     'seats'
   end
 
+  def occupy_seats
+    occupy_space(1)
+  rescue StandardError => e
+    raise e.message.gsub('space', self.class.space_key)
+  end
+
   protected
 
-  attr_writer :seats, :seats_occupied
+  alias seats= space=
+  alias seats_occupied= space_occupied=
 
   def validate!
     raise 'Number of seats must be greater than 0!' unless seats.positive?
