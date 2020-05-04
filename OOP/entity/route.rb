@@ -59,6 +59,7 @@ class Route
     correct_type = stations.all? do |station|
       station.class.ancestors.include?(Station)
     end
-    raise 'Objects in stations array must have Station class' unless correct_type
+    error_msg = 'Objects in stations array must have Station class'
+    raise error_msg unless correct_type
   end
 end

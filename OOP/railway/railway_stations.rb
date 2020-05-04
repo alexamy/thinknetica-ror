@@ -11,7 +11,7 @@ module RailwayStations
     validate! :stations
 
     Ui.print_collection(stations) do |station|
-        station.each_train { |train| puts train }
+      station.each_train { |train| puts train }
     end
   end
 

@@ -3,7 +3,7 @@ module RailwayTrains
   attr_reader :trains
 
   def add_train
-    train_class = get_train_class
+    train_class = train_type
     number = Ui.get_input('enter train number')
     trains << train_class.new(number)
   rescue StandardError => e
@@ -68,7 +68,7 @@ module RailwayTrains
     }
   end
 
-  def get_train_class
+  def train_type
     type_message = "enter train type (#{train_classes.keys.join(', ')})"
     type = Ui.get_input(type_message).downcase
     known_train!(type)

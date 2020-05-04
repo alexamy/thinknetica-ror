@@ -2,3 +2,5 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/AsciiComments:
   Enabled: false
+AllCops:
+  NewCops: enable

@@ -12,17 +12,6 @@ class Seed
     populate
   end
 
-  def populate
-    trains[0].add_carriage(carriages[0])
-    trains[0].add_carriage(carriages[1])
-    trains[2].add_carriage(carriages[2])
-    trains[2].add_carriage(carriages[3])
-    stations[0].add_train(trains[0])
-    stations[0].add_train(trains[1])
-    stations[1].add_train(trains[2])
-    stations[1].add_train(trains[3])
-  end
-
   def self.sample_stations
     %w[Stockton Minneapolis Garland Seattle Jacksonville]
       .map { |station| Station.new(station) }
@@ -48,5 +37,30 @@ class Seed
       PassengerCarriage.new(50),
       PassengerCarriage.new(20)
     ]
+  end
+
+  def populate
+    populate_trains
+    populate_stations
+  end
+
+  protected
+
+  def populate_trains
+    links = { 0 => [0, 1], 2 => [2, 3] }
+    links.each do |t_idx, c_idxs|
+      c_idxs.each do |c_idx|
+        trains[t_idx].add_carriage(carriages[c_idx])
+      end
+    end
+  end
+
+  def populate_stations
+    links = { 0 => [0, 1], 1 => [2, 3] }
+    links.each do |s_idx, t_idxs|
+      t_idxs.each do |t_idx|
+        stations[s_idx].add_train(trains[t_idx])
+      end
+    end
   end
 end
