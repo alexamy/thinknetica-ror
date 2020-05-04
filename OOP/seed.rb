@@ -4,14 +4,6 @@ class Seed
 
   attr_accessor :trains, :stations, :routes, :carriages
 
-  def initialize
-    @stations = Seed.sample_stations
-    @routes = Seed.sample_routes(@stations)
-    @trains = Seed.sample_trains
-    @carriages = Seed.sample_carriages
-    populate
-  end
-
   def self.sample_stations
     %w[Stockton Minneapolis Garland Seattle Jacksonville]
       .map { |station| Station.new(station) }
@@ -37,6 +29,14 @@ class Seed
       PassengerCarriage.new(50),
       PassengerCarriage.new(20)
     ]
+  end
+
+  def initialize
+    @stations = Seed.sample_stations
+    @routes = Seed.sample_routes(@stations)
+    @trains = Seed.sample_trains
+    @carriages = Seed.sample_carriages
+    populate
   end
 
   def populate

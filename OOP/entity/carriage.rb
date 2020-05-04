@@ -27,11 +27,11 @@ end
 
 # Cargo carriage
 class CargoCarriage < Carriage
+  SPACE_KEY = 'volume'.freeze
+
   alias volume space
   alias volume_occupied space_occupied
   alias volume_free space_free
-
-  SPACE_KEY = 'volume'.freeze
 
   def initialize(volume)
     @space = volume.to_i
@@ -57,11 +57,11 @@ end
 
 # Passenger carriage
 class PassengerCarriage < Carriage
+  SPACE_KEY = 'seats'.freeze
+
   alias seats space
   alias seats_occupied space_occupied
   alias seats_free space_free
-
-  SPACE_KEY = 'seats'.freeze
 
   def initialize(seats)
     @space = seats.to_i

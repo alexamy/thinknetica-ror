@@ -3,11 +3,11 @@ class Station
   include InstanceCounter
   include InitValidator
 
+  attr_reader :name, :trains
+
   class << self
     alias all pool
   end
-
-  attr_reader :name, :trains
 
   def initialize(name)
     @name = name
@@ -38,9 +38,9 @@ class Station
 
   protected
 
+  attr_writer :name, :trains
+
   def validate!
     raise 'Empty name!' unless name
   end
-
-  attr_writer :name, :trains
 end

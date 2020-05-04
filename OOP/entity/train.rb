@@ -5,9 +5,9 @@ class Train
   include Manufacturer
   include InitValidator
 
-  attr_reader :number, :type, :carriages, :velocity
-
   NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
+
+  attr_reader :number, :type, :carriages, :velocity
 
   def self.find(number)
     pool.find { |train| train.number == number }
@@ -68,7 +68,6 @@ class Train
 
   protected
 
-  # Only class can write its values directly
   attr_writer :number, :carriages, :velocity
 
   def validate!
