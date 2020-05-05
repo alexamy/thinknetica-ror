@@ -2,9 +2,7 @@
 module Validation
   def self.extended(base)
     base.include(InstanceMethods)
-    base.class_eval do
-      instance_variable_set(:@validations, [])
-    end
+    base.class_eval { instance_variable_set(:@validations, []) }
   end
 
   def validate(name_sym, type, *args)
@@ -19,10 +17,10 @@ module Validation
   module InstanceMethods
     def validate!
       validations = self.class.instance_variable_get(:@validations)
-      validations.each do |opts|
-        var = instance_variable_get(opts[:name])
-        func = "validate_#{opts[:type]}"
-        self.class.send(func, var, opts[:args].first)
+      validations.each do |name:, type:, args:|
+        var = instance_variable_get(name)
+        func = "validate_#{type}"
+        self.class.send(func, var, args.first)
       end
     end
 
@@ -48,7 +46,7 @@ module Validation
   end
 
   def validate_presence(value, _)
-    raise 'Value is nil or empty string!' unless value || !value.to_s.empty?
+    raise 'Value is nil or empty string!' if value.nil? || value.to_s.empty?
   end
 
   def validate_format(value, regexp)
