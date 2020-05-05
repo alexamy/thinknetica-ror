@@ -1,12 +1,21 @@
 # Interactive shell
 class InteractiveShell
+  extend Validation
+
   attr_reader :target, :title, :entries, :stop_word
+
+  validate :target, :presence
+  validate :title, :type, String
+  validate :title, :format, /^[A-Z]/
+  validate :entries, :presence
+  validate :stop_word, :type, String
 
   def initialize(target, title, entries, stop_word)
     @target = target
     @title = title
     @entries = entries
     @stop_word = stop_word
+    validate!
   end
 
   def run
