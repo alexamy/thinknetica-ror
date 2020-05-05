@@ -9,14 +9,20 @@ module Validation
   end
 
   def validate(name, type, *args)
-    raise 'Validation already presented' if has_validator?(name, type)
+    raise 'Validation already presented' if validation_exist?(name, type)
+    raise 'Unknown validator' unless allowed_validators.include?(type)
 
+    @validations << [name, type, args.first]
     puts 'add validator'
   end
 
   protected
 
-  def has_validator?(name, type)
+  def allowed_validators
+    %i[presence format type]
+  end
+
+  def validation_exist?(name, type)
     validator = @validations.find do |opts|
       opts[:attr] == name && opts[:type] == type
     end
