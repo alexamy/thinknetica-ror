@@ -13,6 +13,10 @@ module Validation
       def type(value, type)
         raise 'Bad value type!' unless value.instance_of?(type)
       end
+
+      def positive(value, _)
+        raise 'Value must be positive!' unless value.positive?
+      end
     end
   end
 end
