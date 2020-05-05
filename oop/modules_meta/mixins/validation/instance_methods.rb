@@ -5,7 +5,7 @@ module Validation
       validations = self.class.instance_variable_get(:@validations)
       validations.each do |name:, type:, args:|
         var = instance_variable_get(name)
-        Validation::Validator.send(type, var, args.first)
+        Validation::Validator.method(type).call(var, args.first)
       end
     end
 

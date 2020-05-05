@@ -16,14 +16,10 @@ module Validation
 
   protected
 
-  def allowed_validators
-    %i[presence format type]
-  end
-
   def validation_exist?(name, type)
-    validator = @validations.find do |opts|
+    validation = @validations.find do |opts|
       opts[:name] == name && opts[:type] == type
     end
-    !!validator
+    !!validation
   end
 end
