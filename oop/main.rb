@@ -26,6 +26,16 @@ puts
 Seed.new.iterate_all
 puts
 
+puts 'Print accessors showcase'
+t = Train.new(55_222)
+begin
+  t.set_custom_accessors(22, 1)
+  t.set_custom_accessors(24, 2)
+  t.set_custom_accessors(25, 'bad')
+rescue StandardError => e
+  puts "Error", e.message
+end
+
 railway = Railway.new
 shell = InteractiveShell.new(railway, title, menu, stop_word)
 shell.run

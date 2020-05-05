@@ -1,11 +1,16 @@
 # Train can move, has carriage and optional route
 class Train
+  extend Accessors
+
   include TrainRoute
   include InstanceCounter
   include Manufacturer
   include InitValidator
 
   NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
+
+  attr_accessor_with_history :mark
+  strong_attr_accessor :stamp, Integer
 
   attr_reader :number, :type, :carriages, :velocity
 
@@ -20,6 +25,13 @@ class Train
 
     validate!
     register_instance
+  end
+
+  def set_custom_accessors(mark_val, stamp_val)
+    self.mark = mark_val
+    self.stamp = stamp_val
+    puts mark.inspect, mark_history.inspect, stamp.inspect
+    puts
   end
 
   def carriage_type
