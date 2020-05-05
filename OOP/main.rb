@@ -1,10 +1,5 @@
-require_relative 'require_all.rb'
-require_all 'ui'
-require_all 'modules_meta'
-require_all 'modules'
-require_all 'models'
-require_all 'railway'
-require_relative 'seed'
+require_relative 'kernel.rb'
+require_all '.'
 
 title = 'Railway Manager'
 stop_word = 'Exit'
