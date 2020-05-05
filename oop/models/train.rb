@@ -5,14 +5,13 @@ class Train
   include TrainRoute
   include InstanceCounter
   include Manufacturer
-  include InitValidator
 
   NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i.freeze
 
+  attr_reader :number, :type, :carriages, :velocity
+
   attr_accessor_with_history :mark
   strong_attr_accessor :stamp, Integer
-
-  attr_reader :number, :type, :carriages, :velocity
 
   def self.find(number)
     pool.find { |train| train.number == number }
@@ -23,7 +22,6 @@ class Train
     @carriages = []
     @velocity = 0
 
-    validate!
     register_instance
   end
 
@@ -81,15 +79,19 @@ class Train
   protected
 
   attr_writer :number, :carriages, :velocity
-
-  def validate!
-    raise 'Empty number!' unless number
-    raise 'Bad number format!' unless number =~ NUMBER_FORMAT
-  end
 end
 
 # Cargo train
 class CargoTrain < Train
+  extend Validation
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+
+  def initialize(number)
+    super
+    validate!
+  end
+
   def carriage_type
     CargoCarriage
   end
@@ -97,6 +99,15 @@ end
 
 # Passenger train
 class PassengerTrain < Train
+  extend Validation
+  validate :number, :presence
+  validate :number, :format, NUMBER_FORMAT
+
+  def initialize(number)
+    super
+    validate!
+  end
+
   def carriage_type
     PassengerCarriage
   end

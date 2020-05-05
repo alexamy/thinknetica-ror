@@ -33,7 +33,8 @@ begin
   t.set_custom_accessors(24, 2)
   t.set_custom_accessors(25, 'bad')
 rescue StandardError => e
-  puts "Error", e.message
+  puts "Showcase error:", e.message
+  puts
 end
 
 railway = Railway.new

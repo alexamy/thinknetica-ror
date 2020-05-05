@@ -1,9 +1,11 @@
 # Station belongs to route and can add and departure trains
 class Station
+  extend Validation
   include InstanceCounter
-  include InitValidator
 
   attr_reader :name, :trains
+
+  validate :name, :presence
 
   class << self
     alias all pool
@@ -39,8 +41,4 @@ class Station
   protected
 
   attr_writer :name, :trains
-
-  def validate!
-    raise 'Empty name!' unless name
-  end
 end
