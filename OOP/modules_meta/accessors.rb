@@ -1,5 +1,5 @@
 # New accessors
 module Accessors
-  include Accessors::WithHistory
-  include Accessors::StrongAccessor
+  include WithHistory
+  include StrongAccessor
 end
