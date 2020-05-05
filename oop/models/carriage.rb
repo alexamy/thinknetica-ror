@@ -1,7 +1,6 @@
 # Carriage for train
 class Carriage
   include Manufacturer
-  include InitValidator
   include CarriageSpace
 
   def space_data
@@ -27,11 +26,17 @@ end
 
 # Cargo carriage
 class CargoCarriage < Carriage
+  extend Validation
+
   SPACE_KEY = 'volume'.freeze
 
   alias volume space
+  alias volume= space=
   alias volume_occupied space_occupied
+  alias volume_occupied= space_occupied=
   alias volume_free space_free
+
+  validate :space, :positive
 
   def initialize(volume)
     @space = volume.to_i
@@ -44,24 +49,21 @@ class CargoCarriage < Carriage
   rescue StandardError => e
     raise e.message.gsub('space', SPACE_KEY)
   end
-
-  protected
-
-  alias volume= space=
-  alias volume_occupied= space_occupied=
-
-  def validate!
-    raise 'Volume must be greater than 0!' unless volume.positive?
-  end
 end
 
 # Passenger carriage
 class PassengerCarriage < Carriage
+  extend Validation
+
   SPACE_KEY = 'seats'.freeze
 
   alias seats space
+  alias seats= space=
   alias seats_occupied space_occupied
+  alias seats_occupied= space_occupied=
   alias seats_free space_free
+
+  validate :space, :positive
 
   def initialize(seats)
     @space = seats.to_i
@@ -73,14 +75,5 @@ class PassengerCarriage < Carriage
     occupy_space(1)
   rescue StandardError => e
     raise e.message.gsub('space', SPACE_KEY)
-  end
-
-  protected
-
-  alias seats= space=
-  alias seats_occupied= space_occupied=
-
-  def validate!
-    raise 'Number of seats must be greater than 0!' unless seats.positive?
   end
 end
